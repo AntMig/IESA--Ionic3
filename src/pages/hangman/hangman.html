@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>Hangman</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-grid class="home-grid">
+
+      <div id="mot" text-center>
+        <span *ngFor="let lettre of lettres">
+          <span *ngIf="lettre.trouve === false"> _ </span>
+          <span *ngIf="lettre.trouve === true">{{ lettre.valeur }}</span>
+        </span>
+      </div>
+
+      <ion-item>
+        <ion-input text-center [(ngModel)]="lettreEntree" type="text" placeholder="Choississez une lettre" maxlength="1"></ion-input>
+      </ion-item>
+  
+      <button id='btn-valide' ion-button block (click)="resultat()">Validez</button>
+
+      <div id="lettres">
+        <span>Les lettres déjà utilisés sont : 
+          <span *ngFor="let itemLetter of useLetter">
+            <span *ngIf="itemLetter.value === 1" class="trueLetter">{{itemLetter.letter}}</span>
+            <span *ngIf="itemLetter.value === 0" class="falseLetter">{{itemLetter.letter}}</span>
+          </span>
+        </span>
+        
+      </div>
+
+      <div id="drawn">
+          <img id="pendus" *ngIf="tentative < 11" width="100%" height="100%" src="{{ pendu }}"/>
+          <img id="final" *ngIf="tentative === 0" width="100%" height="100%" src="../../../assets/imgs/hangman/hung5.png"/>
+      </div>
+  
+      <button id='btn-new' ion-button small (click)="newGame()">Nouvelle partie</button>
+      <p>Ratio victoire / défaite : {{ ratio }} </p>
+    </ion-grid>
+  
+  </ion-content>  
